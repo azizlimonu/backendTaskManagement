@@ -14,5 +14,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/v1', require('./src/v1/routes'));
+app.get('/api/v2', (req, res) => {
+  res.send("API RUNNING OKAY");
+});
 
 module.exports = app;

@@ -11,12 +11,13 @@ const mongoose = require('mongoose'); // MongoDB ORM library
 dotenv.config();
 
 // Normalize the port value from environment variable or default to 3000
-const port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || '5000');
 app.set('port', port); // Set the port in the Express application
 
 // Create an HTTP server using the Express application as the request handler
 const server = http.createServer(app);
 
+mongoose.set('strictQuery', false);
 // Connect to MongoDB using the connection URL from the environment variable
 mongoose.connect(process.env.MONGODB_URL)
   .then(() => {
@@ -24,7 +25,8 @@ mongoose.connect(process.env.MONGODB_URL)
     server.listen(port);
     server.on('error', onError); // Event listener for server errors
     server.on('listening', onListening); // Event listener for server listening
-    console.log(`MongoDB connected: ${process.env.MONGODB_URL}`);
+    console.log(`MongoDB connected`);
+    console.log(`Server Running on Port ${port}`);
   })
   .catch(err => {
     // If there's an error connecting to MongoDB, log the error and exit the process
