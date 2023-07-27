@@ -7,22 +7,22 @@ const User = require('../models/user')
 
 router.post(
   '/signup',
-  body('username').isLength({ min: 8 }).withMessage(
-    'username must be at least 8 characters'
+  body('username').isLength({ min: 6 }).withMessage(
+    'username must be at least 6 characters'
   ),
-  body('password').isLength({ min: 8 }).withMessage(
-    'password must be at least 8 characters'
+  body('password').isLength({ min: 6 }).withMessage(
+    'password must be at least 6 characters'
   ),
-  body('confirmPassword').isLength({ min: 8 }).withMessage(
-    'confirmPassword must be at least 8 characters'
+  body('confirmPassword').isLength({ min: 6 }).withMessage(
+    'confirmPassword must be at least 6 characters'
   ),
-  body('username').custom(value => {
-    return User.findOne({ username: value }).then(user => {
-      if (user) {
-        return Promise.reject('username already used')
-      }
-    })
-  }),
+  // body('username').custom(value => {
+  //   return User.findOne({ username: value }).then(user => {
+  //     if (user) {
+  //       return Promise.reject('username already used')
+  //     }
+  //   })
+  // }),
   validation.validate,
   userController.register
 )
